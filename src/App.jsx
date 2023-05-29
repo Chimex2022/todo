@@ -1,15 +1,30 @@
 import { useState } from "react"
-import CreateTask from "./components/CreateTask"
-import ListTask from "./components/ListTasks"
-const App = () => {
+import Form from './components/Form';
+import TodoList from "./components/TodoList";
 
-  const [tasks, setTasks] = useState([])
-  return (
-   
-    <div className="bg-slate-100 w-screen h-screen flex flex-col items-center pt-3 gap-16">
-      <CreateTask tasks={tasks} setTasks={setTasks} />
-      <ListTask  tasks={tasks} setTasks={setTasks} /> 
-    </div>
+const App = () => {
+  const [todos, setTodos] = useState([])
+  console.log(todos);
+
+  // add todo
+  const addTodo = (newTodo) => {
+    setTodos([...todos, newTodo])
+  }
+
+  const removeTodo = (todoIndex) => {
+     const todosCopy = [...todos]
+
+     todosCopy.splice(todoIndex, 1)
+     setTodos(todosCopy)
+  }
+
+  return ( 
+  <>
+  <div className="bg-slate-900 ">
+  <Form addTodo={addTodo} />
+  <TodoList todos={todos} removeTodo={removeTodo} />
+  </div>
+  </>
   )
 }
 
